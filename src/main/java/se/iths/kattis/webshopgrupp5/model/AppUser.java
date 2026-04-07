@@ -1,0 +1,35 @@
+package se.iths.kattis.webshopgrupp5.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+public class AppUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String username; // email
+    private String password;
+    private boolean consent;
+    private String role;
+
+
+    public AppUser() {
+    }
+
+    public AppUser(String username, String password, boolean consent, String role) {
+        this.username = username;
+        this.password = password;
+        this.consent = consent;
+        this.role = role;
+    }
+
+}
