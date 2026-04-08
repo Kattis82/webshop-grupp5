@@ -45,4 +45,5 @@ public class RegistrationForm {
     public void setConsent(boolean consent) {
         this.consent = consent;
     }
+
 }
