@@ -49,7 +49,7 @@ public class ProductService {
     //Hitta produkt via namn
     public List<Product> findByProductname(String name) {
         try {
-            List<Product> product = productRepository.findByProductname(name);
+            List<Product> product = productRepository.findByName(name);
             return product;
         } catch (ProductNotFoundException e) {
             System.out.println("Product not found");
