@@ -40,6 +40,7 @@ public class ProductService {
     public Product createProduct(String name, Double price, String category, String pictureUrl) {
         if (appUser.getRole().equals("ADMIN")) {
             Product product = new Product(name, price, category, pictureUrl);
+            productRepository.save(product);
             return product;
         }
         return null;
