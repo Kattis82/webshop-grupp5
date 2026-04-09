@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,12 +18,17 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // listan används när vi skapar relationerna mellan tabeller
-    //private List<OrderItem> orderItems = new ArrayList<>();
 
     private String username;   // användaren som har gjort ordern
     private Double totalPrice;
     private LocalDate orderDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private AppUser user;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order() {
     }
@@ -35,9 +42,10 @@ public class Order {
 
     // Hjälpmetod för att lägga till OrderItem
     // används senare i service-lagret när Order skapas från kundvagnen
-//    public void addOrderItem(OrderItem item) {
-//        this.orderItems.add(item);
-//    }
+    public void addOrderItem(OrderItem item) {
+        item.setOrder(this);
+        this.orderItems.add(item);
+    }
 
 
 }
