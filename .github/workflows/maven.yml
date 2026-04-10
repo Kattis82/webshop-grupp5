@@ -9,29 +9,29 @@ on:
       - main
   workflow_dispatch:
 
-    permissions:
-      contents: read
-      packages: read
+permissions:
+  contents: read
+  packages: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checka ut koden
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Sätt upp Java + Maven auth
+      - name: Setup Java with GitHub Packages auth
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-          cache: maven
           server-id: github
           server-username: GITHUB_ACTOR
           server-password: ${{ secrets.GITHUB_TOKEN }}
+          cache: maven
 
-      - name: Bygg projektet
+      - name: Build project
         run: mvn -B clean verify
         env:
           DB_URL: ${{ secrets.DB_URL }}
