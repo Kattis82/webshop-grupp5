@@ -50,7 +50,7 @@
         <a th:href="@{/register}">Skapa konto</a>
     </p>
 
-    <div th:if="${hasConsent}">
+    <div th:if="${!hasConsent}">
         <p>Vi vill använda cookies, går det bra?</p>
         <form th:action="@{/consent}" method="post">
             <button type="submit">Acceptera</button>
