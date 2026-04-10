@@ -27,13 +27,14 @@ jobs:
           distribution: temurin
           java-version: '17'
           server-id: github
-          server-username: kattis82
-          server-password: ${{ secrets.TOKEN }}
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
           cache: maven
 
       - name: Build project
         run: mvn -B clean verify
         env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           DB_URL: ${{ secrets.DB_URL }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
