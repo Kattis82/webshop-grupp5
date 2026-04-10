@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
 
     public ProductService(ProductRepository productRepository) {
@@ -22,7 +22,7 @@ public class ProductService {
     }
 
     //sortera per kategori
-    public List<Product> sortByCategory(String category) {
+    public List<Product> findByCategory(String category) {
         return productRepository.findByCategory(category);
     }
 
