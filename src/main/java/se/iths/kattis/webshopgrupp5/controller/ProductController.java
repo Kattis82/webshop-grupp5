@@ -50,7 +50,8 @@ public class ProductController {
 
     //länk till kundvagn
     @GetMapping("/cart")
-    public String userCart() {
+    public String userCart(Model model) {
+        model.addAttribute("cart", cartService.getCartItems());
         return "cart";
     }
 }
