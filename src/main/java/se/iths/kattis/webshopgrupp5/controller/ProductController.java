@@ -27,10 +27,11 @@ public class ProductController {
     public String listProducts(@RequestParam(required = false) String category, Model model) {
         if (category != null) {
             model.addAttribute("products", productService.findByCategory(category));
+            model.addAttribute("category", category);
             return "products/category";
         }
         model.addAttribute("products", productService.getAllProducts());
-        return "products/list";
+        return "products";
     }
 
     //visa produktinfo
@@ -38,6 +39,14 @@ public class ProductController {
     public String productDetails(@PathVariable String name, Model model) {
         model.addAttribute("product", productService.findByProductname(name));
         return "products/detail";
+    }
+
+    //sök efter produkt
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam String query, Model model) {
+        model.addAttribute("products", productService.search(query));
+        model.addAttribute("query", query);
+        return "products";
     }
 
     //lägg till i kundvagn

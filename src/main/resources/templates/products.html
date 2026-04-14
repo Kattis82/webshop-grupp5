@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<header>
+    <span>Meny</span> <br>
+    <a th:href="@{/cart}">Gå till kundvagn</a>
+    <!--    Länk till olika kategorier-->
+    <nav>
+        <h4>Kategorier: </h4>
+        <a th:href="@{/products}">Alla</a>
+        <a th:href="@{/products(category='Sushi')}">Sushi</a>
+        <a th:href="@{/products(category='Pizza')}">Pizza</a>
+        <a th:href="@{/products(category='Pasta')}">Pasta</a>
+    </nav>
+    <!--    Möjlighet att söka efter produkter-->
+    <form th:action="@{/products/search}" method="get">
+        <input type="text" name="query" placeholder="Sök efter produkt">
+        <button type="submit">Sök</button>
+    </form>
+</header>
+<main>
+
+    <h1>Alla produkter</h1>
+    <p th:if="${#lists.isEmpty(products)}">
+        Inga produkter hittades <br><span th:text="${query}"></span>
+    </p>
+
+
+    <div class="product-container">
+        <div class="product-card" th:each="product : ${products}">
+            <h2 th:text="${product.name}">Produktnamn</h2>
+            <img th:src="${product.pictureUrl}" alt="Produktbild" class="product-image"/>
+            <p><strong>Pris:</strong> <span th:text="${product.price}"></span> kr</p>
+            <p><strong>Kategori:</strong> <span th:text="${product.category}"></span></p>
+            <a th:href="@{'/products/name/' + ${product.name}}">Visa produktinfo</a>
+            <a th:href="@{'/products/add/' + ${product.id}}" class="add-to-cart-btn">Lägg till i kundvagn</a>
+        </div>
+    </div>
+</main>
+<footer>Footer</footer>
+</body>
+</html>
