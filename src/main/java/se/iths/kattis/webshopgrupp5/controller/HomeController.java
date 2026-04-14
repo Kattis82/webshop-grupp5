@@ -1,0 +1,65 @@
+package se.iths.kattis.webshopgrupp5.controller;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.ResponseCookie;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+//öppen för alla
+@Controller
+public class HomeController {
+
+    //Cookie consent
+    @GetMapping("/")
+    public String hello(HttpServletRequest request, Model model) {
+        model.addAttribute("hasConsent", hasConsent(request));
+        return "home";
+    }
+
+    @PostMapping("/consent")
+    public String consent(HttpServletResponse response) {
+        ResponseCookie consentCookie = ResponseCookie.from("cookie_consent", "true")
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .sameSite("Lax")
+                .maxAge(60 * 60 * 24 * 30)
+                .build();
+        response.addHeader("Set-Cookie", consentCookie.toString());
+        return "redirect:/";
+    }
+
+    private boolean hasConsent(HttpServletRequest request) {
+        String consent = getCookieValue(request, "cookie_consent");
+        return "true".equals(consent);
+    }
+
+    private String getCookieValue(HttpServletRequest request, String cookieName) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(cookieName)) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
+
+    //länk till login
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
+    //länk till registrering
+    @GetMapping("/register")
+    public String registerPage() {
+        return "register";
+    }
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <!--    Med style hamnar footern längst ner och inte direkt efter texten är slut-->
+    <style>
+        /*Gör att html och body sträcker sig i hela webbläsarfönstret*/
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        /*flex gör body till en container*/
+        /*column meddelar elementen att de ska staplas vertikalt*/
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /*flex gör att main expanderas så att den fyller ledigt utrymme*/
+        /*så att footern åker ner*/
+        main {
+            flex: 1;
+        }
+
+        footer {
+            /*Ger ljusgrå bakgrund*/
+            background: #eee;
+            /*Lite luft runt texten*/
+            padding: 10px;
+            /*Centrerar texten i footern*/
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <span>Meny</span>
+    <a th:href="@{/login}">Logga in</a>
+    <a th:href="@{/register}">Skapa konto</a>
+</header>
+
+<main>
+    <h2>Välkommen</h2>
+
+    <p>
+        <a th:href="@{/login}">Logga in</a> eller
+        <a th:href="@{/register}">Skapa konto</a>
+    </p>
+
+    <div th:if="${!hasConsent}">
+        <p>Vi vill använda cookies, går det bra?</p>
+        <form th:action="@{/consent}" method="post">
+            <button type="submit">Acceptera</button>
+        </form>
+    </div>
+    <div th:if="${hasConsent}">
+        <p>Du har gett tillstånd att använda cookies</p>
+    </div>
+</main>
+
+<footer>
+    <span>Footer</span>
+</footer>
+
+</body>
+</html>
