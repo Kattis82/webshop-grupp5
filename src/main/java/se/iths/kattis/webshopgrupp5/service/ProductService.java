@@ -28,13 +28,29 @@ public class ProductService {
     }
 
     //Hitta produkt via namn
-    public List<Product> findByProductname(String name) {
+    public Product findByProductname(String name) {
         return productRepository.findByName(name);
+    }
+
+    //Söka efter produkt med söknamnet eller liknande produkter
+    public List<Product> search(String query) {
+        return productRepository.findByNameContainingIgnoreCase(query);
     }
 
     //Hitta produkt via id
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+    }
+
+    //Skapa produkt
+    public Product create(String name, Double price, String category, String pictureUrl) {
+        Product product = new Product();
+        product.setName(name);
+        product.setPrice(price);
+        product.setCategory(category);
+        product.setPictureUrl(pictureUrl);
+
+        return productRepository.save(product);
     }
 }
