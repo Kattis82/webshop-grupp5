@@ -16,9 +16,13 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String username; // email
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private boolean consent;
+    @Column(nullable = false)
     private String role;
 
     @OneToMany(mappedBy = "user")
