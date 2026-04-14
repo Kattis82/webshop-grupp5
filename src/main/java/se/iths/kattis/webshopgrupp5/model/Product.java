@@ -16,10 +16,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private Double price;
+    @Column(nullable = false)
     private String category;
-    private String pictureUrl;
+    private String pictureUrl;  // produkt kanske inte har en bild
 
     @OneToMany(mappedBy = "product")
     private List<OrderItem> orderItems = new ArrayList<>();
