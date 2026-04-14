@@ -28,8 +28,13 @@ public class ProductService {
     }
 
     //Hitta produkt via namn
-    public List<Product> findByProductname(String name) {
+    public Product findByProductname(String name) {
         return productRepository.findByName(name);
+    }
+
+    //Söka efter produkt med söknamnet eller liknande produkter
+    public List<Product> search(String query) {
+        return productRepository.findByNameContainingIgnoreCase(query);
     }
 
     //Hitta produkt via id
