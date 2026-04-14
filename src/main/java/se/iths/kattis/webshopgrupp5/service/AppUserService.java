@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public class AppUserService {
 
-    // App repository
+    // Variabler
     private AppUserRepository repository;
 
     // Konstruktor
@@ -22,6 +22,8 @@ public class AppUserService {
         AppUser user = new AppUser();
         user.setUsername(username);
         user.setPassword(password);
+        user.setConsent(consent);
+        user.setRole("USER");
         repository.save(user);
     }
 
