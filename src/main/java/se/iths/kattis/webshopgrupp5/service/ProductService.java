@@ -42,4 +42,15 @@ public class ProductService {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found"));
     }
+
+    //Skapa produkt
+    public Product create(String name, Double price, String category, String pictureUrl) {
+        Product product = new Product();
+        product.setName(name);
+        product.setPrice(price);
+        product.setCategory(category);
+        product.setPictureUrl(pictureUrl);
+
+        return productRepository.save(product);
+    }
 }
