@@ -18,9 +18,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    private String username;   // användaren som har gjort ordern
+    @Column(nullable = false)
+    private String username;// användaren som har gjort ordern
+    @Column(nullable = false)
     private Double totalPrice;
+    @Column(nullable = false)
     private LocalDate orderDate;
 
     @ManyToOne
