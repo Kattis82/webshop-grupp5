@@ -29,7 +29,8 @@ public class ProductService {
 
     //Hitta produkt via namn
     public Product findByProductname(String name) {
-        return productRepository.findByName(name);
+        return productRepository.findByName(name)
+                .orElseThrow(() -> new ProductNotFoundException("Produkten hittades inte"));
     }
 
     //Söka efter produkt med söknamnet eller liknande produkter
@@ -40,7 +41,7 @@ public class ProductService {
     //Hitta produkt via id
     public Product findById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Produkten hittades inte"));
     }
 
     //Skapa produkt
@@ -52,5 +53,11 @@ public class ProductService {
         product.setPictureUrl(pictureUrl);
 
         return productRepository.save(product);
+    }
+
+    public void deleteProductByName(String name) {
+        Product product = productRepository.findByName(name)
+                .orElseThrow(() -> new ProductNotFoundException("Produkten hittades inte"));
+        productRepository.delete(product);
     }
 }

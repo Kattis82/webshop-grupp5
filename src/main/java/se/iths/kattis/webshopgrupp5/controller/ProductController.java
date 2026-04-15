@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import se.iths.kattis.webshopgrupp5.model.Product;
+import se.iths.kattis.webshopgrupp5.service.AppUserService;
 import se.iths.kattis.webshopgrupp5.service.CartService;
 import se.iths.kattis.webshopgrupp5.service.ProductService;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/products")
@@ -16,20 +19,32 @@ public class ProductController {
 
     private final ProductService productService;
     private final CartService cartService;
+    private final AppUserService appUserService;
 
-    public ProductController(ProductService productService, CartService cartService) {
+    public ProductController(ProductService productService, CartService cartService, AppUserService appUserService) {
         this.productService = productService;
         this.cartService = cartService;
+        this.appUserService = appUserService;
     }
 
     //listar alla produkter eller filtrera per kategori
     @GetMapping
-    public String listProducts(@RequestParam(required = false) String category, Model model) {
+    public String listProducts(@RequestParam(required = false) String category, Model model, Principal principal) {
+        boolean isAdmin = false;
+
+        if (principal != null) {
+            isAdmin = appUserService.findByUsername(principal.getName())
+                    .map(user -> "ADMIN".equals(user.getRole()))
+                    .orElse(false);
+        }
+        model.addAttribute("isAdmin", isAdmin);
+
         if (category != null) {
             model.addAttribute("products", productService.findByCategory(category));
             model.addAttribute("category", category);
             return "products/category";
         }
+
         model.addAttribute("products", productService.getAllProducts());
         return "products";
     }
