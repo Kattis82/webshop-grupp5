@@ -2,40 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Products</title>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1;
-        }
-
-        footer {
-            background: #eee;
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
+    <title>Admin</title>
 </head>
 <body>
 <header>
-    <span>Meny</span> <br>
-    <a th:href="@{/cart}">Gå till kundvagn</a>
-    <!--    Länk till olika kategorier-->
-    <nav>
-        <h4>Kategorier: </h4>
-        <a th:href="@{/products}">Alla</a>
-        <a th:href="@{/products(category='Sushi')}">Sushi</a>
-        <a th:href="@{/products(category='Pizza')}">Pizza</a>
-        <a th:href="@{/products(category='Pasta')}">Pasta</a>
+    <span>Meny</span>
+    nav>
+    <h4>Kategorier: </h4>
+    <a th:href="@{/products}">Alla</a>
+    <a th:href="@{/products(category='Sushi')}">Sushi</a>
+    <a th:href="@{/products(category='Pizza')}">Pizza</a>
+    <a th:href="@{/products(category='Pasta')}">Pasta</a>
     </nav>
     <!--    Möjlighet att söka efter produkter-->
     <form th:action="@{/products/search}" method="get">
@@ -44,12 +21,11 @@
     </form>
 </header>
 <main>
+    <h1>Admin produkter</h1>
 
-    <h1>Alla produkter</h1>
-    <p th:if="${#lists.isEmpty(products)}">
-        Inga produkter hittades <br><span th:text="${query}"></span>
-    </p>
-
+    <a th:href="@{/admin/products/create}">
+        <button>Skapa ny produkt</button>
+    </a>
 
     <div class="product-container">
         <div class="product-card" th:each="product : ${products}">
@@ -60,15 +36,13 @@
             <p><strong>Kategori:</strong> <span th:text="${product.category}"></span></p>
             <a th:href="@{'/products/name/' + ${product.name}}">Visa produktinfo</a>
             <a th:href="@{'/products/add/' + ${product.id}}" class="add-to-cart-btn">Lägg till i kundvagn</a>
-            <div th:if="${isAdmin}">
+
                 <form th:action="@{/admin/products/delete}" method="post">
                     <input type="hidden" name="id" th:value="${product.id}">
                     <button type="submit">Radera produkt</button>
                 </form>
-            </div>
         </div>
     </div>
 </main>
-<footer>Footer</footer>
 </body>
 </html>

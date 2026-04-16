@@ -18,6 +18,12 @@ public class AdminProductController {
         this.productService = productService;
     }
 
+    @GetMapping
+    public String adminProducts(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
+        return "admin/products";
+    }
+
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("productDTO", new ProductDTO());
@@ -40,9 +46,9 @@ public class AdminProductController {
         return "redirect:/products";
     }
 
-    @GetMapping("/delete")
-    public String deleteProduct(@RequestParam String name) {
-        productService.deleteProductByName(name);
+    @PostMapping("/delete")
+    public String deleteProduct(@RequestParam Long id) {
+        productService.deleteProductById(id);
         return "redirect:/products";
     }
 }

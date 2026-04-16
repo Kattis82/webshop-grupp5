@@ -5,6 +5,22 @@
     <title>Kundvagn</title>
 </head>
 <body>
+<header>
+    <span>Meny</span> <br>
+    <!--    Länk till olika kategorier-->
+    <nav>
+        <h4>Kategorier: </h4>
+        <a th:href="@{/products}">Alla</a>
+        <a th:href="@{/products(category='Sushi')}">Sushi</a>
+        <a th:href="@{/products(category='Pizza')}">Pizza</a>
+        <a th:href="@{/products(category='Pasta')}">Pasta</a>
+    </nav>
+    <!--    Möjlighet att söka efter produkter-->
+    <form th:action="@{/products/search}" method="get">
+        <input type="text" name="query" placeholder="Sök efter produkt">
+        <button type="submit">Sök</button>
+    </form>
+</header>
 
 <h1>Din kundvagn</h1>
 
@@ -47,6 +63,6 @@
         <button type="submit">Genomför köp</button>
     </form>
 </div>
-
+<footer>Footer</footer>
 </body>
 </html>
