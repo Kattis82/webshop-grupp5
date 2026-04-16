@@ -45,7 +45,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers(
                                         "/",                  // startsida (öppen)
-                                        "/login","/register", // login
+                                        "/login/**",// login
+                                        "/register**",
+                                        "/consent",
                                         "/login/ott",// 2FA endpoints
                                         "/privacy-policy", "/cookie-policy" // policy-sidor
 
@@ -59,14 +61,12 @@ public class SecurityConfig {
                 )
 
                 // Login (första steg i autentisering)
-                .formLogin(form -> form
-                        .loginPage("/login") // egen login-sida
-                        .permitAll()
+                .formLogin(form ->
+                        form.defaultSuccessUrl("/products", true)
                 )
 
                 // 2FA (andra steg – One-Time Token via email)
                 .oneTimeTokenLogin(ott -> ott
-                                .loginPage("/login") // använder samma login-sida
                                 .tokenGenerationSuccessHandler(ottSuccessHandler)
                         /* När password är korrekt:
                             1. Spring genererar token
