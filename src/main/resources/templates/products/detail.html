@@ -3,6 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Produktinfo</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background: #eee;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .product-image {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -25,7 +53,8 @@
 <main>
     <!--Rubrik som visar produktnamn-->
     <h2 th:text="${product.name}"></h2>
-    <img th:src="${product.pictureUrl}" alt="Produktbild" class="product-image"/>
+    <img th:src="${product.pictureUrl}" alt="Produktbild" class="product-image"
+         style="width: 200px; height: 200px; object-fit: cover;"/>
     <p>
         <strong>Pris:</strong>
         <span th:text="${product.price}"></span> kr

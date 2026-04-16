@@ -5,13 +5,14 @@ import org.springframework.stereotype.Repository;
 import se.iths.kattis.webshopgrupp5.model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByCategory(String category);
 
-    Product findByName(String name);
+    Optional<Product> findByName(String name);
 
     Long id(Long id);
 

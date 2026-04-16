@@ -3,6 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background: #eee;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -33,11 +54,17 @@
     <div class="product-container">
         <div class="product-card" th:each="product : ${products}">
             <h2 th:text="${product.name}">Produktnamn</h2>
-            <img th:src="${product.pictureUrl}" alt="Produktbild" class="product-image"/>
+            <img th:src="${product.pictureUrl}" alt="Produktbild" class="product-image"
+                 style="width: 200px; height: 200px; object-fit: cover;"/>
             <p><strong>Pris:</strong> <span th:text="${product.price}"></span> kr</p>
             <p><strong>Kategori:</strong> <span th:text="${product.category}"></span></p>
             <a th:href="@{'/products/name/' + ${product.name}}">Visa produktinfo</a>
             <a th:href="@{'/products/add/' + ${product.id}}" class="add-to-cart-btn">Lägg till i kundvagn</a>
+            <div th:if="${isAdmin}">
+                <a th:href="@{/admin/products/delete(name=${product.name})}">
+                    <button>Radera produkt</button>
+                </a>
+            </div>
         </div>
     </div>
 </main>
