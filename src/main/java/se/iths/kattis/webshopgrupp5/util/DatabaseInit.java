@@ -1,11 +1,13 @@
 package se.iths.kattis.webshopgrupp5.util;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import se.iths.kattis.webshopgrupp5.model.AppUser;
 import se.iths.kattis.webshopgrupp5.repository.AppUserRepository;
 
+@Profile({"dev","test"})
 @Component
 public class DatabaseInit {
 
@@ -18,34 +20,26 @@ public class DatabaseInit {
     }
 
     @PostConstruct
-    public void createUser() {
-        AppUser appUser = new AppUser();
-        appUser.setUsername("paveena.naebsuwan@gmail.com");
-        appUser.setRole("ADMIN");
-        appUser.setPassword(passwordEncoder.encode("password"));
-        appUser.setConsent(true);
-        appUserRepository.save(appUser);
+    public void createUsers() {
 
-        AppUser appUser2 = new AppUser();
-        appUser2.setUsername("josefine.m.berglund@gmail.com");
-        appUser2.setRole("ADMIN");
-        appUser2.setPassword(passwordEncoder.encode("password"));
-        appUser2.setConsent(true);
-        appUserRepository.save(appUser2);
+        createAdminIfNotExists("paveena.naebsuwan@gmail.com");
+        createAdminIfNotExists("josefine.m.berglund@gmail.com");
+        createAdminIfNotExists("kattiscalmvik@gmail.com");
+        createAdminIfNotExists("jh.viippa@gmail.com");
+    }
 
-        AppUser appUser3 = new AppUser();
-        appUser3.setUsername("kattiscalmvik@gmail.com");
-        appUser3.setRole("ADMIN");
-        appUser3.setPassword(passwordEncoder.encode("password"));
-        appUser3.setConsent(true);
-        appUserRepository.save(appUser3);
+    private void createAdminIfNotExists(String email) {
 
-        AppUser appUser4 = new AppUser();
-        appUser4.setUsername("jh.viippa@gmail.com");
-        appUser4.setRole("ADMIN");
-        appUser4.setPassword(passwordEncoder.encode("password"));
-        appUser4.setConsent(true);
-        appUserRepository.save(appUser4);
+        if (appUserRepository.findByUsername(email).isEmpty()) {
 
+            AppUser user = new AppUser();
+
+            user.setUsername(email);
+            user.setRole("ADMIN");
+            user.setPassword(passwordEncoder.encode("password"));
+            user.setConsent(true);
+
+            appUserRepository.save(user);
+        }
     }
 }

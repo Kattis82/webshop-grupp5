@@ -48,5 +48,3 @@ CREATE TABLE IF NOT EXISTS order_items
     FOREIGN KEY (product_id)
     REFERENCES product (id)
     );
-
-TRUNCATE TABLE orders, app_user RESTART IDENTITY CASCADE;
