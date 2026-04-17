@@ -98,7 +98,8 @@ class ProductServiceH2Test {
     @Test
     @DisplayName("Testar så produkt raderas")
     void deleteProductById() {
-        productService.deleteProductById(1L);
+        productRepository.findById(product.getId());
+        productService.deleteProductById(product.getId());
         Assertions.assertEquals(0, productRepository.count());
     }
 }
