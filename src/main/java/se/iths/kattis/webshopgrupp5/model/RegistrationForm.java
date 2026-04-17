@@ -14,7 +14,7 @@ public class RegistrationForm {
     // Variabler
     @NotBlank(message = "(!) Email måste fyllas i")
     @Email(message = "Ogiltig email!")
-    private String email;
+    private String username;
 
     @NotBlank(message = "(!) Lösenord måste fyllas i")
     @Size(min = 6, message = "Minst 6 tecken!")

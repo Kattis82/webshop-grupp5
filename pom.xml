@@ -108,7 +108,7 @@
         <dependency>
             <groupId>se.iths.kattis</groupId>
             <artifactId>mailservice-grupp5</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
     <repositories>
