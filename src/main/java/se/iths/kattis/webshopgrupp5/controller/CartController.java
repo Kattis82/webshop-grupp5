@@ -62,7 +62,7 @@ public class CartController {
     public String checkout(@AuthenticationPrincipal UserDetails userDetails) {
         Long orderId = orderService.createOrderFromCart(userDetails.getUsername());
         // URL som matchas mot OrderController,confirmation.html skapas i branch med OrderController
-        return "redirect:/order/confirmation" + orderId;  // dynamiskt id
+        return "redirect:/order/confirmation/{orderId}";  // dynamiskt id
     }
 
 

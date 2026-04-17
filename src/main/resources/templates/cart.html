@@ -3,6 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Kundvagn</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background: #eee;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .product-image {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
