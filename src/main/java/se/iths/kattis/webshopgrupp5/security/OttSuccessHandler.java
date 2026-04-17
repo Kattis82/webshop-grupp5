@@ -18,6 +18,8 @@ public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
     // EmailService används för att skicka mail från separat projekt
     private final EmailService emailService;
 
+
+
     // Constructor injection, Spring skickar in EmailService automatiskt
     public OttSuccessHandler(EmailService emailService) {
         this.emailService = emailService;
@@ -40,14 +42,15 @@ public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
 
         // Skickar ett mejl till användaren med länken
         // oneTimeToken.getUsername() = användarens e-post
+
         emailService.send(new Email(
-                oneTimeToken.getUsername(),
+                request.getParameter("username"), // hämtar username (e-post) från login-formuläret
                 "Inloggning",
                 link
         ));
 
-        /*Skickar tillbaka användaren till login-sidan
+        /*Skickar tillbaka användaren till home
          där användaren väntar på att klicka på länken i mejlet */
-        response.sendRedirect("/login");
+        response.sendRedirect("/");
     }
 }
