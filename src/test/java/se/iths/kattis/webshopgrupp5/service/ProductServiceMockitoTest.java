@@ -45,8 +45,8 @@ class ProductServiceMockitoTest {
     void getAllProductsTest() {
         products.add(product);
         Mockito.when(productRepository.findAll()).thenReturn(products);
-        List<Product> resault = productService.getAllProducts();
-        assertEquals(products, resault);
+        List<Product> result = productService.getAllProducts();
+        assertEquals(products, result);
     }
 
     @Test
@@ -54,16 +54,16 @@ class ProductServiceMockitoTest {
     void findByCategoryTest() {
         products.add(product);
         Mockito.when(productRepository.findByCategory("Pasta")).thenReturn(products);
-        List<Product> rasult = productService.findByCategory(product.getCategory());
-        assertEquals(products, rasult);
+        List<Product> result = productService.findByCategory(product.getCategory());
+        assertEquals(products, result);
     }
 
     @Test
     @DisplayName("Letar produkt efter namn")
     void findByProductnameTest() {
         Mockito.when(productRepository.findByName("Carbonara")).thenReturn(Optional.of(product));
-        Product resault = productService.findByProductname(product.getName());
-        assertEquals(product, resault);
+        Product result = productService.findByProductname(product.getName());
+        assertEquals(product, result);
     }
 
     @Test
@@ -72,16 +72,16 @@ class ProductServiceMockitoTest {
         products.add(product);
         Mockito.when(productRepository.findByNameContainingIgnoreCase(Mockito.anyString()))
                 .thenReturn(products);
-        List<Product> resault = productService.search("Car");
-        assertEquals(products, resault);
+        List<Product> result = productService.search("Car");
+        assertEquals(products, result);
     }
 
     @Test
     @DisplayName("Letar produkt efter ID")
     void findByIdTest() {
         Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(product));
-        Product resault = productService.findById(product.getId());
-        assertEquals(product, resault);
+        Product result = productService.findById(product.getId());
+        assertEquals(product, result);
     }
 
     @Test
