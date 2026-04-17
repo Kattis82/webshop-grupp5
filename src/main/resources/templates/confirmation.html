@@ -5,35 +5,37 @@
     <title>Orderbekräftelse</title>
 </head>
 <body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h1>Tack för din beställning!</h1>
 
-<h1>Tack för din beställning!</h1>
+    <p>Ordernummer: <strong th:text="${order.id}"></strong></p>
+    <p>Datum: <span th:text="${order.orderDate}"></span></p>
 
-<p>Ordernummer: <strong th:text="${order.id}"></strong></p>
-<p>Datum: <span th:text="${order.orderDate}"></span></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Produkt</th>
+            <th>Antal</th>
+            <th>Pris</th>
+            <th>Summa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${order.orderItems}">
+            <td th:text="${item.productName}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.price} + ' kr'"></td>
+            <td th:text="${item.quantity * item.price} + ' kr'"></td>
+        </tr>
+        </tbody>
+    </table>
 
-<table>
-    <thead>
-    <tr>
-        <th>Produkt</th>
-        <th>Antal</th>
-        <th>Pris</th>
-        <th>Summa</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="item : ${order.orderItems}">
-        <td th:text="${item.productName}"></td>
-        <td th:text="${item.quantity}"></td>
-        <td th:text="${item.price} + ' kr'"></td>
-        <td th:text="${item.quantity * item.price} + ' kr'"></td>
-    </tr>
-    </tbody>
-</table>
+    <p><strong>Totalt: </strong><span th:text="${order.totalPrice} + ' kr'"></span></p>
+    <p>En orderbekräftelse har skickats till <span th:text="${order.username}"></span>.</p>
 
-<p><strong>Totalt: </strong><span th:text="${order.totalPrice} + ' kr'"></span></p>
-<p>En orderbekräftelse har skickats till <span th:text="${order.username}"></span>.</p>
-
-<a href="/products">Fortsätt handla</a>
-
+    <a href="/products">Fortsätt handla</a>
+</main>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

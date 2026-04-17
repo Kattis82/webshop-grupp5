@@ -26,21 +26,7 @@
     </style>
 </head>
 <body>
-<header>
-    <span>Meny</span>
-    <a th:href="@{/cart}">Gå till kundvagn</a>
-    <nav>
-        <h4>Kategorier: </h4>
-        <a th:href="@{/products}">Alla</a>
-        <a th:href="@{/products(category='Sushi')}">Sushi</a>
-        <a th:href="@{/products(category='Pizza')}">Pizza</a>
-        <a th:href="@{/products(category='Pasta')}">Pasta</a>
-    </nav>
-    <form th:action="@{/products/search}" method="get">
-        <input type="text" name="query" placeholder="Sök efter produkt">
-        <button type="submit">Sök</button>
-    </form>
-</header>
+<header th:replace="fragments/header :: header"></header>
 <main>
     <h1>Skapa produkt</h1>
     <form th:action="@{/admin/products/create}" th:object="${productDTO}" method="post">
@@ -67,8 +53,6 @@
         <button type="submit">Spara produkt</button>
     </form>
 </main>
-<footer>
-    <span>Footer</span>
-</footer>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

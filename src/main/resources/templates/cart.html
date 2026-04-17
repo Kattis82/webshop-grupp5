@@ -5,48 +5,50 @@
     <title>Kundvagn</title>
 </head>
 <body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h1>Din kundvagn</h1>
 
-<h1>Din kundvagn</h1>
+    <!--hjälpmetod som kollar om en lista är tom, blocket visas bara om tom-->
+    <div th:if="${#lists.isEmpty(cartItems)}">
+        <p>Din kundvagn är tom.</p>
+        <a href="/products">Fortsätt handla</a>
+    </div>
 
-<!--hjälpmetod som kollar om en lista är tom, blocket visas bara om tom-->
-<div th:if="${#lists.isEmpty(cartItems)}">
-    <p>Din kundvagn är tom.</p>
-    <a href="/products">Fortsätt handla</a>
-</div>
+    <!--blocket visas bara om listan inte är tom-->
+    <div th:unless="${#lists.isEmpty(cartItems)}">
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Produkt</th>
+                <th>Pris</th>
+                <th>Antal</th>
+                <th>Summa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--Loopar igenom alla CartItem i listan, för varje rad i kundvagnen skapas-->
+            <!--en ny <tr> i tabellen (tr=en rad i tabellen). item är namnet på variabeln
+             för varje enskild rad i loopen (td= en cell i en rad)-->
+            <tr th:each="item : ${cartItems}">
+                <td th:text="${item.productName}"></td>
+                <td th:text="${item.productPrice} + ' kr'"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${item.totalPrice} + ' kr'"></td>
+            </tr>
+            </tbody>
+        </table>
 
-<!--blocket visas bara om listan inte är tom-->
-<div th:unless="${#lists.isEmpty(cartItems)}">
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-        <tr>
-            <th>Produkt</th>
-            <th>Pris</th>
-            <th>Antal</th>
-            <th>Summa</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!--Loopar igenom alla CartItem i listan, för varje rad i kundvagnen skapas-->
-        <!--en ny <tr> i tabellen (tr=en rad i tabellen). item är namnet på variabeln
-         för varje enskild rad i loopen (td= en cell i en rad)-->
-        <tr th:each="item : ${cartItems}">
-            <td th:text="${item.productName}"></td>
-            <td th:text="${item.productPrice} + ' kr'"></td>
-            <td th:text="${item.quantity}"></td>
-            <td th:text="${item.totalPrice} + ' kr'"></td>
-        </tr>
-        </tbody>
-    </table>
+        <p><strong>Totalt: </strong><span th:text="${totalPrice} + ' kr'"></span></p>
 
-    <p><strong>Totalt: </strong><span th:text="${totalPrice} + ' kr'"></span></p>
-
-    <form th:action="@{/cart/clear}" method="post">
-        <button type="submit">Töm kundvagn</button>
-    </form>
-    <form th:action="@{/cart/checkout}" method="post">
-        <button type="submit">Genomför köp</button>
-    </form>
-</div>
-
+        <form th:action="@{/cart/clear}" method="post">
+            <button type="submit">Töm kundvagn</button>
+        </form>
+        <form th:action="@{/cart/checkout}" method="post">
+            <button type="submit">Genomför köp</button>
+        </form>
+    </div>
+</main>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
