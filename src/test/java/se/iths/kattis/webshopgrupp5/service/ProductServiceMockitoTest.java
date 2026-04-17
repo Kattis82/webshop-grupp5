@@ -95,10 +95,10 @@ class ProductServiceMockitoTest {
 
     @Test
     @DisplayName("Kollar så produkt raderas")
-    void deleteProductByNameTest() {
-        Mockito.when(productRepository.findByName("Carbonara")).thenReturn(Optional.of(product));
-        productService.deleteProductByName("Carbonara");
-        verify(productRepository).findByName("Carbonara");
+    void deleteProductByIdTest() {
+        Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(product));
+        productService.deleteProductById(1L);
+        verify(productRepository).findById(1L);
         verify(productRepository).delete(product);
     }
 }
