@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+</head>
+<body>
+<header th:fragment="header">
+
+    <span>Meny</span> <br>
+    <a th:href="@{/cart}">Gå till kundvagn</a>
+    <!--    Länk till olika kategorier-->
+    <nav>
+        <h4>Kategorier: </h4>
+        <a th:href="@{/products}">Alla</a>
+        <a th:href="@{/products(category='Sushi')}">Sushi</a>
+        <a th:href="@{/products(category='Pizza')}">Pizza</a>
+        <a th:href="@{/products(category='Pasta')}">Pasta</a>
+    </nav>
+    <!--    Möjlighet att söka efter produkter-->
+    <form th:action="@{/products/search}" method="get">
+        <input type="text" name="query" placeholder="Sök efter produkt">
+        <button type="submit">Sök</button>
+    </form>
+</header>
+</body>
+</html>

@@ -50,10 +50,4 @@ public class HomeController {
         }
         return null;
     }
-
-    //länk till registrering
-    @GetMapping("/register")
-    public String registerPage() {
-        return "register";
-    }
 }
