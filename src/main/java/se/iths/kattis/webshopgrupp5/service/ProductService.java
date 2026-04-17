@@ -55,8 +55,8 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public void deleteProductByName(String name) {
-        Product product = productRepository.findByName(name)
+    public void deleteProductById(Long id) {
+        Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Produkten hittades inte"));
         productRepository.delete(product);
     }
