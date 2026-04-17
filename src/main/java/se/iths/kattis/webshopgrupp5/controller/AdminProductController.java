@@ -37,12 +37,12 @@ public class AdminProductController {
                 productDTO.getCategory(),
                 productDTO.getPictureUrl()
         );
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
     @GetMapping("/delete")
     public String deleteProduct(@RequestParam String name) {
         productService.deleteProductByName(name);
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 }
