@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-<header th:replace="fragments/header :: header"></header>
+<div th:replace="fragments/header :: header"></div>
 <main>
     <h1>Skapa produkt</h1>
     <form th:action="@{/admin/products/create}" th:object="${productDTO}" method="post">
@@ -53,6 +53,6 @@
         <button type="submit">Spara produkt</button>
     </form>
 </main>
-<footer th:replace="fragments/footer :: footer"></footer>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
