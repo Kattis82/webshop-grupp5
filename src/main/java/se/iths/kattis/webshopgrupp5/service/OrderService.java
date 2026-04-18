@@ -6,9 +6,11 @@ import se.iths.kattis.webshopgrupp5.exception.OrderNotFoundException;
 import se.iths.kattis.webshopgrupp5.model.AppUser;
 import se.iths.kattis.webshopgrupp5.model.Order;
 import se.iths.kattis.webshopgrupp5.model.OrderItem;
+import se.iths.kattis.webshopgrupp5.model.Product;
 import se.iths.kattis.webshopgrupp5.model.cart.CartItem;
 import se.iths.kattis.webshopgrupp5.repository.AppUserRepository;
 import se.iths.kattis.webshopgrupp5.repository.OrderRepository;
+import se.iths.kattis.webshopgrupp5.repository.ProductRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,12 +22,14 @@ public class OrderService {
     private final CartService cartService;
     private final AppUserRepository appUserRepository;
     private final MailService mailService;
+    private final ProductRepository productRepository;
 
-    public OrderService(OrderRepository orderRepository, CartService cartService, AppUserRepository appUserRepository, MailService mailService) {
+    public OrderService(OrderRepository orderRepository, CartService cartService, AppUserRepository appUserRepository, MailService mailService, ProductRepository productRepository) {
         this.orderRepository = orderRepository;
         this.cartService = cartService;
         this.appUserRepository = appUserRepository;
         this.mailService = mailService;
+        this.productRepository = productRepository;
     }
 
     // metod som skapar en order av det som ligger i kundvagnen
@@ -53,9 +57,15 @@ public class OrderService {
                     cartItem.getQuantity(),
                     cartItem.getProductPrice()
             );
+
+            Product product = productRepository.findById(cartItem.getProductId())
+                    .orElseThrow();
+            orderItem.setProduct(product);
+
             // OrderItem läggs till denna order
             order.addOrderItem(orderItem);
         }
+
 
         // ordern sparas i databasen
         Order savedOrder = orderRepository.save(order);
