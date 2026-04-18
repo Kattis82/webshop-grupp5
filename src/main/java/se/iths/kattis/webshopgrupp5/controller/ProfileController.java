@@ -24,10 +24,10 @@ public class ProfileController {
     @GetMapping
     public String showProfile(Principal principal, Model model) {
 
-        // - Hämta inloggad användare
+        // Hämta inloggad användare
         var user = service.findByUsername(principal.getName());
 
-        // - Skicka med användaren till profilsidan
+        // Skicka med användare till profilsidan
         model.addAttribute("user", user);
         return "profile";
     }
