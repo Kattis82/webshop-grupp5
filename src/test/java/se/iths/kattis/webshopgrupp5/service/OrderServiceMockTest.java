@@ -12,9 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import se.iths.kattis.webshopgrupp5.exception.OrderNotFoundException;
 import se.iths.kattis.webshopgrupp5.model.AppUser;
 import se.iths.kattis.webshopgrupp5.model.Order;
+import se.iths.kattis.webshopgrupp5.model.Product;
 import se.iths.kattis.webshopgrupp5.model.cart.CartItem;
 import se.iths.kattis.webshopgrupp5.repository.AppUserRepository;
 import se.iths.kattis.webshopgrupp5.repository.OrderRepository;
+import se.iths.kattis.webshopgrupp5.repository.ProductRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -37,6 +39,8 @@ class OrderServiceMockTest {
     CartService cartService;
     @Mock
     MailService mailService;
+    @Mock
+    ProductRepository productRepository;
 
     // riktig OrderService
     @InjectMocks
@@ -59,13 +63,22 @@ class OrderServiceMockTest {
     @Test
     void createOrderFromCartSuccess() {
         // arrange
+
         CartItem cartItem = new CartItem(1l, "testprodukt", 50.0, 2);
+
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("testprodukt");
+        product.setPrice(50.0);
+        product.setCategory("test");
 
         // när metoden anropas...gör/returnera detta istället
         when(cartService.getCartItems()).thenReturn(List.of(cartItem));
         when(cartService.getTotalPrice()).thenReturn(100.0);
         when(appUserRepository.findByUsername("kattis@test.com"))
                 .thenReturn(Optional.of(testUser));
+        when(productRepository.findById(1L))
+                .thenReturn(Optional.of(product));
         when(orderRepository.save(any(Order.class))).thenReturn(testOrder);
 
         // act - testar metoden createOrderFromCart
@@ -131,11 +144,19 @@ class OrderServiceMockTest {
         // arrange
         CartItem cartItem = new CartItem(1l, "testprodukt", 50.0, 2);
 
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("testprodukt");
+        product.setPrice(50.0);
+        product.setCategory("test");
+
         // när metoden anropas...gör/returnera detta istället
         when(cartService.getCartItems()).thenReturn(List.of(cartItem));
         when(cartService.getTotalPrice()).thenReturn(100.0);
         when(appUserRepository.findByUsername("kattis@test.com"))
                 .thenReturn(Optional.of(testUser));
+        when(productRepository.findById(1L))
+                .thenReturn(Optional.of(product));
         when(orderRepository.save(any(Order.class))).thenReturn(testOrder);
 
 

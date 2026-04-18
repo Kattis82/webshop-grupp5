@@ -12,9 +12,11 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import se.iths.kattis.webshopgrupp5.exception.OrderNotFoundException;
 import se.iths.kattis.webshopgrupp5.model.AppUser;
 import se.iths.kattis.webshopgrupp5.model.Order;
+import se.iths.kattis.webshopgrupp5.model.Product;
 import se.iths.kattis.webshopgrupp5.model.cart.CartItem;
 import se.iths.kattis.webshopgrupp5.repository.AppUserRepository;
 import se.iths.kattis.webshopgrupp5.repository.OrderRepository;
+import se.iths.kattis.webshopgrupp5.repository.ProductRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,12 +35,15 @@ class OrderServiceH2Test {
     AppUserRepository appUserRepository;
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    ProductRepository productRepository;
 
     // mockas så att de inte påverkar testet
     @MockitoBean // mockar - blir låtsasobjekt
             CartService cartService;
     @MockitoBean
     MailService mailService;
+
 
     AppUser testUser;
 
@@ -61,7 +66,15 @@ class OrderServiceH2Test {
     @DisplayName("Ska testa att order sparas i databasen")
     void createOrderFromCartSuccess() {
         // arrange
-        CartItem cartItem = new CartItem(1l, "testprodukt", 50.0, 2);
+        Product product = new Product();
+        product.setName("testprodukt");
+        product.setPrice(50.0);
+        product.setCategory("test");
+        product.setPictureUrl("url");
+
+        Product savedProduct = productRepository.save(product);
+
+        CartItem cartItem = new CartItem(savedProduct.getId(), "testprodukt", 50.0, 2);
 
         // när metoden anropas...gör detta istället
         when(cartService.getCartItems()).thenReturn(List.of(cartItem));
