@@ -36,6 +36,7 @@ public class ProductController {
             isAdmin = appUserService.findByUsername(principal.getName())
                     .map(user -> "ADMIN".equals(user.getRole()))
                     .orElse(false);
+
             model.addAttribute("user",
                     appUserService.findByUsername(principal.getName()).orElse(null)
             );
