@@ -49,7 +49,7 @@ public class SecurityConfig {
                                         "/register**",
                                         "/consent",
                                         "/login/ott",// 2FA endpoints
-                                        "/privacy-policy", "/cookie-policy" // policy-sidor
+                                        "/policy/privacy", "/policy/cookie" // policy-sidor
 
                                 ).permitAll() // alla ovan når utan inloggning
 
