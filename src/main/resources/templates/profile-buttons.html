@@ -1,0 +1,27 @@
+<! DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<main>
+    <h1>Min profil</h1>
+    <p>Email: <span th:text="${user.username}"></span></p>
+    <p>Roll: <span th:text="${user.consent}"></span></p>
+    <p>Godkänt villkor: <span th:text="${user.consent}"></span></p>
+
+    <form action="/profile/export" method="get">
+        <button type="submit">Ladda ned uppgifter</button>
+    </form>
+
+    <form action="/profile/delete" method="post">
+        <button type="submit">Ta bort konto</button>
+    </form>
+
+</main>
+</body>
+</html>
