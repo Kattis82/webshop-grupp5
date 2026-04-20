@@ -69,13 +69,14 @@ public class ProductController {
     public String addToCart(@PathVariable Long id) {
         Product product = productService.findById(id);
         cartService.addProduct(product);
-        return "redirect:/products/cart";
+        return "redirect:/products";
     }
 
     //länk till kundvagn
     @GetMapping("/cart")
     public String userCart(Model model) {
-        model.addAttribute("cart", cartService.getCartItems());
+        model.addAttribute("cartItems", cartService.getCartItems());
+        model.addAttribute("totalPrice", cartService.getTotalPrice());
         return "cart";
     }
 }

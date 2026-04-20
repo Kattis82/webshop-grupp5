@@ -7,7 +7,10 @@
 <body>
 <header th:fragment="header">
 
-    <span>Meny</span> <br>
+    <span>Meny</span> <br> <br>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logga ut</button>
+    </form>
     <a th:href="@{/cart}">Gå till kundvagn</a>
     <!--    Länk till olika kategorier-->
     <nav>
