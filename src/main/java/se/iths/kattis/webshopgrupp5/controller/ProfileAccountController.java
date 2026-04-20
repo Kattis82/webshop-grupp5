@@ -1,6 +1,8 @@
 package se.iths.kattis.webshopgrupp5.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import se.iths.kattis.webshopgrupp5.service.AppUserService;
@@ -17,6 +19,20 @@ public class ProfileAccountController {
     // Konstruktor
     public ProfileAccountController(AppUserService service) {
         this.service = service;
+    }
+
+    // Metod - Exportera användardata
+    @GetMapping("/export")
+    public String exportUserData(Principal principal, Model model) {
+
+        // - Hämta inloggad användare
+        var user = service.findByUsername(principal.getName());
+
+        // - Skicka med användaren till exportsidan
+        model.addAttribute("user", user);
+
+        // - Visa exportsidan
+        return "profile-export";
     }
 
     // Metod - Ta bort konto

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - Exportera</title>
+</head>
+
+<body>
+<h2>Mina uppgifter</h2>
+
+<p>Email: <span th:text="${user.username}"></span></p>
+<p>Roll: <span th:text="${user.role}"></span></p>
+<p>Godkänt villkor: <span th:text="${user.consent}"></span></p>
+
+<a href="/profile">Tillbaka till profilen</a>
+</body>
+</html>
