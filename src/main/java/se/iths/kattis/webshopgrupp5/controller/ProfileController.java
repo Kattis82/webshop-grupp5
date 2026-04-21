@@ -29,6 +29,9 @@ public class ProfileController {
     @GetMapping
     public String showProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 
+        if (userDetails == null) {
+            return "redirect:/home";
+        }
         // - Hämta inloggad användare
         Optional<AppUser> userOptional = service.findByUsername(userDetails.getUsername());
 
@@ -45,6 +48,9 @@ public class ProfileController {
     @PostMapping("/delete")
     public String deleteAccount(@AuthenticationPrincipal UserDetails userDetails, HttpSession session) {
 
+        if (userDetails == null) {
+            return "redirect:/home";
+        }
         // - Ta bort användare via username
         service.deleteByUsername(userDetails.getUsername());
 
