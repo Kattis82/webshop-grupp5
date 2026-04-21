@@ -1,5 +1,7 @@
 package se.iths.kattis.webshopgrupp5.service;
 
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +22,25 @@ public class AppUserServiceH2Test {
     @Autowired
     AppUserRepository repository;
 
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+    }
+
     // Testmetod - Sparar user i databasen
     @Test
     @DisplayName("Spara användare i databasen")
     void saveCreatesUser() {
 
         // Arrange
-        AppUser user = new AppUser("newuser@testmail.com", "123", true, "USER");
+        AppUser user = new AppUser("kattis@test.com", "testpassword", true, "USER");
 
         // Act
         AppUser saved = repository.save(user);
 
         // Assert
         assertNotNull(saved.getId());
-        assertEquals("newuser@testmail.com", saved.getUsername());
+        assertEquals("kattis@test.com", saved.getUsername());
         assertEquals("USER", saved.getRole());
     }
 
@@ -43,31 +50,32 @@ public class AppUserServiceH2Test {
     void findReturnsUser() {
 
         // Arrange
-        AppUser user = new AppUser("newuser@testmail.com", "123", true, "USER");
+        AppUser user = new AppUser("kattis@test.com", "testpassword", true, "USER");
         repository.save(user);
 
         // Act
-        Optional<AppUser> result = repository.findByUsername("newuser@testmail.com");
+        Optional<AppUser> result = repository.findByUsername("kattis@test.com");
 
         // Assert
         assertTrue(result.isPresent());
-        assertEquals("newuser@testmail.com", result.get().getUsername());
+        assertEquals("kattis@test.com", result.get().getUsername());
     }
 
     // Testmetod - Tar bort användare från databasen
+    @Transactional
     @Test
     @DisplayName("Ta bort användare från databasen")
     void deleteRemovesUser() {
 
         // Arrange
-        AppUser user = new AppUser("newuser@testmail.com", "123", true, "USER");
+        AppUser user = new AppUser("kattis@test.com", "testpassword", true, "USER");
         repository.save(user);
 
         // Act
-        repository.deleteByUsername("newuser@testmail.com");
+        repository.deleteByUsername("kattis@test.com");
 
         // Assert
-        assertFalse(repository.findByUsername("newuser@testmail.com").isPresent());
+        assertFalse(repository.findByUsername("kattis@test.com").isPresent());
     }
 
     // Testmetod - Användare finns databasen
@@ -76,11 +84,11 @@ public class AppUserServiceH2Test {
     void existsReturnsTrue() {
 
         //Arrange
-        AppUser user = new AppUser("newuser@testmail.com", "123", true, "USER");
+        AppUser user = new AppUser("kattis@test.com", "testpassword", true, "USER");
         repository.save(user);
 
         // Act
-        boolean exists = repository.existsByUsername("newuser@testmail.com");
+        boolean exists = repository.existsByUsername("kattis@test.com");
 
         // Assert
         assertTrue(exists);
@@ -93,7 +101,7 @@ public class AppUserServiceH2Test {
     void existsReturnsFalse() {
 
         // Act
-        boolean exists = repository.existsByUsername("missinguser@testmail.com");
+        boolean exists = repository.existsByUsername("kattis@test.com");
 
         // Assert
         assertFalse(exists);
