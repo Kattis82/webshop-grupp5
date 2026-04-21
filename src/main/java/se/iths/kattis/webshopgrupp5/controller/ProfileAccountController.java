@@ -47,6 +47,6 @@ public class ProfileAccountController {
         service.deleteByUsername(username);
 
         // - Skicka tillbaka till startsidan
-        return "redirect:/";
+        return "redirect:/logout";
     }
 }

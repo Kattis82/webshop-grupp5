@@ -14,7 +14,10 @@
     <p>Roll: <span th:text="${user.role}"></span></p>
     <p>Godkänt villkor: <span th:text="${user.consent}"></span></p>
 
-    <a href="/profile/delete">Ta bort konto</a>
+    <form th:action="@{/profile/delete}" method="post">
+        <button type="submit">Ta bort konto</button>
+    </form>
+    
     <a href="/profile/export">Ladda ned uppgifter</a>
 
 </main>
