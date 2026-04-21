@@ -49,7 +49,7 @@ public class AppUserServiceMockTest {
         ));
     }
 
-    // Testmetod -
+    // Testmetod - Hämtar user korrekt
     @Test
     void findReturnsUserFromRepository() {
 
@@ -65,7 +65,7 @@ public class AppUserServiceMockTest {
         assertEquals("a", result.get().getUsername());
     }
 
-    // Testmetod -
+    // Testmetod - Kör delete i repository
     @Test
     void deleteUsesRepository() {
 
@@ -76,7 +76,7 @@ public class AppUserServiceMockTest {
         verify(repository).deleteByUsername("a");
     }
 
-    // Testmetod -
+    // Testmetod - Kontrollerar exists via repository
     @Test
     void existsUsesRepository() {
 
