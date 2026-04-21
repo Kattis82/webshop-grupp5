@@ -54,6 +54,6 @@ public class RegistrationController {
                 form.getPassword(),
                 form.isConsent()
         );
-        return "redirect:/home";
+        return "redirect:/";
     }
 }
