@@ -45,7 +45,7 @@ public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
 
         emailService.send(new Email(
                 request.getParameter("username"), // hämtar username (e-post) från login-formuläret
-                "Inloggning",
+                "One Time Token link",
                 link
         ));
 
