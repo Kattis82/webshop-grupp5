@@ -27,7 +27,7 @@ public class AppUserServiceMockTest {
     @Mock
     PasswordEncoder encoder;
 
-    // App Service (mocks)
+    // Service (mocks)
     @InjectMocks
     AppUserService service;
 
