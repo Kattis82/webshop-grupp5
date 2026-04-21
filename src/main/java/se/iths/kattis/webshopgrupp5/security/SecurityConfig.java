@@ -42,22 +42,23 @@ public class SecurityConfig {
 
         http
                 // Authorization, vem får tillgång till vad
-                .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(
-                                        "/",                  // startsida (öppen)
-                                        "/login/**",// login
-                                        "/register**",
-                                        "/consent",
-                                        "/login/ott",// 2FA endpoints
-                                        "/policy/privacy", "/policy/cookie" // policy-sidor
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(
+                                "/",
+                                "/login/**",
+                                "/register",
+                                "/consent",
+                                "/login/ott",
+                                "/policy/privacy", "/policy/cookie",
+                                "/actuator/**"
 
-                                ).permitAll() // alla ovan når utan inloggning
+                        ).permitAll() // alla ovan når utan inloggning
 
-                                // Endast användare med rollen ADMIN får access
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                        // Endast användare med rollen ADMIN får access
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                                // Alla andra endpoints kräver inloggning
-                                .anyRequest().authenticated()
+                        // Alla andra endpoints kräver inloggning
+                        .anyRequest().authenticated()
                 )
 
                 // Login (första steg i autentisering)
@@ -83,12 +84,6 @@ public class SecurityConfig {
                 );
 
         return http.build(); // bygger och returnerar security-konfigurationen
-    }
-
-    // Bean som används av Spring för autentisering (kopplar ihop login-systemet)
-    @Bean
-    public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
     }
 
     // Bean för att hasha lösenord (BCrypt)
