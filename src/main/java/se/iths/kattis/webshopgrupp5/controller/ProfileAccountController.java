@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import se.iths.kattis.webshopgrupp5.model.AppUser;
 import se.iths.kattis.webshopgrupp5.service.AppUserService;
 
 import java.security.Principal;
@@ -26,7 +27,7 @@ public class ProfileAccountController {
     public String exportUserData(Principal principal, Model model) {
 
         // - Hämta inloggad användare
-        var user = service.findByUsername(principal.getName());
+        AppUser user = service.findByUsername(principal.getName()).orElseThrow();
 
         // - Skicka med användaren till exportsidan
         model.addAttribute("user", user);
