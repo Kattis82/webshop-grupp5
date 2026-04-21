@@ -49,8 +49,6 @@ public class SecurityConfig {
                                 "/register",
                                 "/consent",
                                 "/login/ott",
-                                "/products",
-                                "/cart",
                                 "/policy/privacy", "/policy/cookie",
                                 "/actuator/**"
 
@@ -65,7 +63,7 @@ public class SecurityConfig {
 
                 // Login (första steg i autentisering)
                 .formLogin(form ->
-                        form.defaultSuccessUrl("/profile", true)
+                        form.defaultSuccessUrl("/products", true)
                 )
 
                 // 2FA (andra steg – One-Time Token via email)
