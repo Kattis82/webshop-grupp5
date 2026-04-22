@@ -44,6 +44,26 @@ public class ProfileController {
         return "profile";
     }
 
+    // Metod - Exportera användardata
+    @GetMapping("/export")
+    public String exportAccount(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+
+        if (userDetails == null) {
+            return "redirect:/home";
+        }
+
+        // - Hämta inloggad användare
+        Optional<AppUser> userOptional = service.findByUsername(userDetails.getUsername());
+
+        // - Hämta användare (Optional)
+        AppUser user = userOptional.orElse(null);
+
+        // - Skicka med användare till sidan (export)
+        model.addAttribute("user", user);
+
+        return "profile-export";
+    }
+
     // Metod - Ta bort konto
     @PostMapping("/delete")
     public String deleteAccount(@AuthenticationPrincipal UserDetails userDetails, HttpSession session) {
@@ -51,6 +71,7 @@ public class ProfileController {
         if (userDetails == null) {
             return "redirect:/home";
         }
+
         // - Ta bort användare via username
         service.deleteByUsername(userDetails.getUsername());
 
