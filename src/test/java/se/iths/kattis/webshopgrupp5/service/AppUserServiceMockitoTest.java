@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 
+
 @ExtendWith(MockitoExtension.class)
 public class AppUserServiceMockitoTest {
 
@@ -69,11 +70,16 @@ public class AppUserServiceMockitoTest {
     @Test
     void deleteUsesRepository() {
 
+        // Arrange
+        AppUser user = new AppUser();
+        user.setUsername("a");
+        Mockito.when(repository.findByUsername("a")).thenReturn(Optional.of(user));
+
         // Act
         service.deleteByUsername("a");
 
         // Assert
-        verify(repository).deleteByUsername("a");
+        verify(repository).delete(user);
     }
 
     // Testmetod - Kontrollerar exists via repository
