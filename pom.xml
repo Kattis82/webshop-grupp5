@@ -10,7 +10,7 @@
     </parent>
     <groupId>se.iths.kattis</groupId>
     <artifactId>webshop-grupp5</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>webshop-grupp5</name>
     <description>webshop-grupp5</description>
     <url/>
