@@ -37,7 +37,10 @@ public class AppUserService {
 
     // Metod - Tar bort användare
     public void deleteByUsername(String username) {
-        repository.deleteByUsername(username);
+        Optional<AppUser> user = repository.findByUsername(username);
+        if (user.isPresent()) {
+            repository.delete(user.get());
+        }
     }
 
     // Metod - Kollar om email existerar
