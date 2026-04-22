@@ -6,19 +6,22 @@
 </head>
 
 <body>
-<div th:replace="fragments/header :: header "></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <main>
     <h1>Min profil</h1>
+
     <p>Email: <span th:text="${user?.username}"></span></p>
     <p>Roll: <span th:text="${user?.role}"></span></p>
     <p>Godkänt villkor: <span th:text="${user?.consent}"></span></p>
+    
+    <form th:action="@{/profile/export}" method="post">
+        <button type="submit">Ladda ned uppgifter</button>
+    </form>
 
     <form th:action="@{/profile/delete}" method="post">
         <button type="submit">Ta bort konto</button>
     </form>
-    
-    <a href="/profile/export">Ladda ned uppgifter</a>
 
 </main>
 </body>
